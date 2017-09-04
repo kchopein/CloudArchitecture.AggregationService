@@ -9,8 +9,8 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
 using Newtonsoft.Json.Serialization;
-using ServiceStore;
 using Swashbuckle.AspNetCore.Swagger;
+using ServiceStore;
 using ServiceClients;
 
 namespace AggregationService
@@ -34,10 +34,10 @@ namespace AggregationService
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddSingleton<IStore>(new Store());
-
             // Add the historian client
             services.AddTransient<ITemperatureHistorian>(
                 (s) => new TemperatureHistorian(new Uri(Configuration["TEMPHISTORIAN"])));
+
 
             // Add framework services.
             services.AddMvc()
@@ -70,5 +70,6 @@ namespace AggregationService
                 c.SwaggerEndpoint("/swagger/v1/swagger.json", "V1 Docs");
             });
         }
+
     }
 }
